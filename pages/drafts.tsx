@@ -5,12 +5,12 @@ import Layout from "../components/Layout";
 import Post, { PostProps } from '../components/Post'
 import prisma from "../lib/prisma";
 
-export const getServerSideProps: GetServerSideProps =async ({req,res}) => {
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const session = await getSession({ req });
-  if (!session){
+  if (!session) {
     res.statusCode = 403;
-    return { props: { drafts: []}};
-  }  
+    return { props: { drafts: [] } };
+  }
 
 
   const drafts = await prisma.post.findMany({
@@ -20,7 +20,7 @@ export const getServerSideProps: GetServerSideProps =async ({req,res}) => {
     },
     include: {
       author: {
-        select: { name: true},
+        select: { name: true },
       },
     },
   });
@@ -39,10 +39,10 @@ const Drafts: React.FC<Props> = (props) => {
   if (!session) {
     return (
       <Layout>
-      <h1>My Drafts</h1>
-      <div>You need to be authenticated to view this page.</div>
-    </Layout>
-  );
+        <h1>My Drafts</h1>
+        <div>You need to be authenticated to view this page.</div>
+      </Layout>
+    );
   }
 
   return (
@@ -52,7 +52,7 @@ const Drafts: React.FC<Props> = (props) => {
         <main>
           {props.drafts.map((post) => (
             <div key={post.id} className="post">
-              <Post post={post}/>
+              <Post post={post} />
             </div>
           ))}
         </main>
