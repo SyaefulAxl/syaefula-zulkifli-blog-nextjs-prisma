@@ -24,14 +24,14 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 };
 
 async function publishPost(id: string): Promise<void> {
-  await fetch(`/api/publish/${id}`,{
+  await fetch(`/api/publish/${id}`, {
     method: `PUT`,
   });
   await Router.push('/')
 }
 
-async function deletePost(id: string): Promise<void>{
-  await fetch(`/api/post/${id}`,{
+async function deletePost(id: string): Promise<void> {
+  await fetch(`/api/post/${id}`, {
     method: 'DELETE',
   });
   Router.push('/');
@@ -49,7 +49,7 @@ const Post: React.FC<PostProps> = (props) => {
     title = `${title} (Drafts)`
   }
 
-  return(
+  return (
     <Layout>
       <div>
         <h2>{title}</h2>
